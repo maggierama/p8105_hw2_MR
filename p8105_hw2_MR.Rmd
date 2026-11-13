@@ -1,0 +1,68 @@
+---
+title: "p8105_hw1_MR"
+author: "Maggie Ramatowski"
+date: 2026-11-10
+output: github_document
+---
+
+# Section 1
+
+## Problem 1: use of inline R code, plotting, and ggplot
+
+Install "palmerpenguins" package
+
+Load "palmerpenguins" package
+```{r}
+data("penguins", package= "palmerpenguins")
+```
+
+Number of rows: `r nrow (penguins)` 
+Number of columns: `r ncol (penguins)` variables.
+Variables: `r ls (penguins)`. 
+Mean flipper length is `r mean(penguins$flipper_length_mm, na.rm=TRUE)`
+
+Load tidyverse
+
+Create scatter plot of flipper lenth vs bill length by species
+```{r}
+library(tidyverse)
+ggplot(penguins, aes(bill_length_mm, y=flipper_length_mm, color=species)) + geom_point()
+```
+
+Export scatter plot as PDF
+```{r}
+ggsave("penguins_flipperbill.pdf", height=4, width=6)
+```
+
+# Section 2
+
+## Problem 2: variable types
+Create a data frame with 10 values from a Normal distribution
+
+```{r}
+hw1_df = tibble(norm_samp= rnorm(10), 
+                norm_pos= norm_samp > 0, 
+                vec_char= c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+                vec_factor= factor(rnorm(10), levels=c("low", "medium", "high"))
+                
+  
+)
+```
+
+Means of each variable in data frame
+Normal Sample: `r mean(hw1_df$norm_samp)`
+Logical Vector: `r mean(hw1_df$norm_pos)`
+Character Vector: `r mean (hw1_df$vec_char)`-- character values cannot be averaged
+Factor Vector: `r mean (hw1_df$vec_factor)`-- factor values cannot be averaged
+
+
+Converting variables
+```{r}
+as.numeric(hw1_df$norm_pos, eval=FALSE)
+as.numeric(hw1_df$vec_char, eval=FALSE)
+as.numeric(hw1_df$vec_factor, eval=FALSE)
+```
+
+
+
+
